@@ -1,0 +1,88 @@
+services:
+  kafka_1:
+    image: apache/kafka:4.0.1
+    hostname: kafka_1
+    container_name: kafka_1
+    restart: always
+    ports:
+      - "9192:9192"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_BROKER_ID: 1
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka_1:9093,2@kafka_2:9093,3@kafka_3:9093'
+      KAFKA_LISTENERS: 'PLAINTEXT://kafka_1:9092,EXT://kafka_1:9192,CONTROLLER://kafka_1:9093'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka_1:9092,EXT://localhost:9192'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT, EXT:PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      CLUSTER_ID: 'EmptNWtoR4GGWx-BH6nGLQ'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+    volumes:
+      - C:\Users\User\docker-volumes\kafka-cluster\1\data:/var/lib/kafka/data
+    networks:
+      - dev-env
+
+  kafka_2:
+    image: apache/kafka:4.0.1
+    hostname: kafka_2
+    container_name: kafka_2
+    restart: always
+    ports:
+      - "9094:9094"
+    environment:
+      KAFKA_NODE_ID: 2
+      KAFKA_BROKER_ID: 2
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka_1:9093,2@kafka_2:9093,3@kafka_3:9093'
+      KAFKA_LISTENERS: 'PLAINTEXT://kafka_2:9092,EXT://kafka_2:9094,CONTROLLER://kafka_2:9093'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka_2:9092,EXT://localhost:9094'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT, EXT:PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      CLUSTER_ID: 'EmptNWtoR4GGWx-BH6nGLQ'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+    volumes:
+      - C:\Users\User\docker-volumes\kafka-cluster\2\data:/var/lib/kafka/data
+    networks:
+      - dev-env
+
+  kafka_3:
+    image: apache/kafka:4.0.1
+    hostname: kafka_3
+    container_name: kafka_3
+    restart: always
+    ports:
+      - "9096:9096"
+    environment:
+      KAFKA_NODE_ID: 3
+      KAFKA_BROKER_ID: 3
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka_1:9093,2@kafka_2:9093,3@kafka_3:9093'
+      KAFKA_LISTENERS: 'PLAINTEXT://kafka_3:9092,EXT://kafka_3:9096,CONTROLLER://kafka_3:9093'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka_3:9092,EXT://localhost:9096'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT, EXT:PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      CLUSTER_ID: 'EmptNWtoR4GGWx-BH6nGLQ'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
+      KAFKA_MIN_INSYNC_REPLICAS: 2
+    volumes:
+      - C:\Users\User\docker-volumes\kafka-cluster\3\data:/var/lib/kafka/data
+    networks:
+      - dev-env
+
+networks:
+  dev-env:
+    name: dev-env
+    driver: bridge
+    external: true
+    attachable: true
