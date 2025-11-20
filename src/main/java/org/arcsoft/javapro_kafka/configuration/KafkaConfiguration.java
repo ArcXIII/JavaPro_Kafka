@@ -1,4 +1,4 @@
-package org.arcsoft.javapro_kafka;
+package org.arcsoft.javapro_kafka.configuration;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -18,11 +18,6 @@ public class KafkaConfiguration {
     @Bean
     NewTopic myTopic() {
         return new NewTopic(topic, 3, (short) 3);
-    }
-
-    @Bean
-    NewTopic myAnotherTopic() {
-        return new NewTopic("javapro-kafka-another", 3, (short) 3);
     }
 
 }
